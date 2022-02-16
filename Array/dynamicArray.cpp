@@ -74,11 +74,10 @@ Array::Array(const Array &other)
 }
 
 Array::Array(const Array &&other)
-    : dynamicArray(nullptr)
-    , number(0)
+    : dynamicArray(std::move(other.dynamicArray))
+    , number(std::move(other.number))
 {
-    dynamicArray = other.dynamicArray;
-    number = other.number;
+
 }
 
 int main()
@@ -108,7 +107,7 @@ int main()
 
     cout << "Copy array1: " << array2 << std::endl;
 
-    Array array3 = Array(array);
+    Array array3 = std::move(array);  //или Array array3 = Array(array); ?
 
     cout << "Move constructor array1: " << array3 << std::endl;
 }
