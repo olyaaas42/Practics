@@ -63,20 +63,22 @@ Array::Array(std::initializer_list<int> list)
 };
 
 
-Array::Array(const Array &array)
+Array::Array(const Array &other)
+    : number(other.number)
+    , dynamicArray(new int[other.number])
 {
-    number = array.number;
-    dynamicArray = new int[number];
-    for(int i = 0; i < number; i++)
+    for(int i = 0; i < other.number; i++)
     {
-        dynamicArray[i] = array.dynamicArray[i];
+        dynamicArray[i] = other.dynamicArray[i];
     }
 }
 
-Array MoveArray(const Array &array)
+Array::Array(const Array &&other)
+    : dynamicArray(nullptr)
+    , number(0)
 {
-    Array reArray(array);
-    return reArray;
+    dynamicArray = other.dynamicArray;
+    number = other.number;
 }
 
 int main()
@@ -106,7 +108,7 @@ int main()
 
     cout << "Copy array1: " << array2 << std::endl;
 
-    Array array3 = MoveArray(array1);
+    Array array3 = Array(array);
 
     cout << "Move constructor array1: " << array3 << std::endl;
 }

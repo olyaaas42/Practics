@@ -19,9 +19,9 @@ public:
 
 	Array(std::initializer_list<int> list); // инициализация контейнера через std::initializer_list
 
-    Array(const Array &array); //конструктор копирования
+    Array(const Array &other); //конструктор копирования
 
-    Array MoveArray(const Array &array); //конструктор перемещения
+    Array(const Array &&other); //конструктор перемещения
 
 private:
     int number {};
