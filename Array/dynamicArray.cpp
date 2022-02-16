@@ -1,19 +1,17 @@
 #include <iostream>
+#include <cassert> // для assert()
+#include <initializer_list> // для std::initializer_list
 #include "dynamicArray.h"
 
 using std::cout;
 
-Array::Array(int number)
+Array::Array(int number) 
 {
     this->number = number;
     this->dynamicArray = new int[this->number];
-    for(int i = 0; i < this->number; i++)
-    {
-        this->dynamicArray[i] = rand()%100;
-    }
 }
 
-Array::~Array()
+Array::~Array() 
 {
     delete[] this->dynamicArray;
 }
@@ -21,6 +19,7 @@ Array::~Array()
 
 int& Array::operator[] (int index)
 {
+    assert(index >= 0 && index < number);
     return dynamicArray[index];
 }
 
@@ -44,19 +43,44 @@ void Array::insertSort()
     }
 }
 
+void Array::randz(int minz, int maxz)
+{
+    for(int i = 0; i < this->number; i++)
+    {
+        this->dynamicArray[i] = minz + rand()%(maxz - minz); 
+    }
+}
+
+Array::Array(std::initializer_list<int> list) 
+    : Array::Array(static_cast<int>(list.size())) 
+{
+    int count{ 0 };
+    for (auto element : list)
+    {
+        dynamicArray[count] = element;
+        ++count;
+    }
+};
+
 int main()
 {
-    int number = 10;
-    Array array(number);
-    int index = 8;
+    int number = 5;
+    //Array array(number); 
+    int index = 4;
+    int minz = -10;
+    int maxz = 100;
+
+    Array array{2, 5, 7, 8, 3}; // список инициализации
+
+    //array.randz(minz, maxz);
     
-    cout << "Dymanic array: " << array << std::endl;
+    cout << "Dynamic array: " << array << std::endl;
 
     cout << "Element dynamic array №" << index+1 << " " << array[index] << std::endl;
 
     array.insertSort();
 
-    cout << "Sorted dymanic array: " << array << std::endl;
+    cout << "Sorted dynamic array: " << array << std::endl;
 
     cout << "Element sorted dynamic array №" << index+1 << " " << array[index] << std::endl;
 }
