@@ -52,27 +52,45 @@ void Array::randz(int minz, int maxz)
 }
 
 Array::Array(std::initializer_list<int> list) 
-    : Array::Array(static_cast<int>(list.size())) 
+    : Array::Array(list.size()) 
 {
-    int count{ 0 };
-    for (auto element : list)
+    int count = 0;
+    for(auto element : list)
     {
         dynamicArray[count] = element;
         ++count;
     }
 };
 
+
+Array::Array(const Array &array)
+{
+    number = array.number;
+    dynamicArray = new int[number];
+    for(int i = 0; i < number; i++)
+    {
+        dynamicArray[i] = array.dynamicArray[i];
+    }
+}
+
+Array MoveArray(const Array &array)
+{
+    Array reArray(array);
+    return reArray;
+}
+
 int main()
 {
-    int number = 5;
-    //Array array(number); 
+    int number = 10;
+    Array array(number); 
     int index = 4;
-    int minz = -10;
-    int maxz = 100;
+    int minz = 10;
+    int maxz = 80;
 
-    Array array{2, 5, 7, 8, 3}; // список инициализации
+    Array array1{2, 5, 7, 8, 3}; 
+    cout << "Dynamic array1: " << array1 << std::endl;
 
-    //array.randz(minz, maxz);
+    array.randz(minz, maxz);
     
     cout << "Dynamic array: " << array << std::endl;
 
@@ -83,4 +101,12 @@ int main()
     cout << "Sorted dynamic array: " << array << std::endl;
 
     cout << "Element sorted dynamic array №" << index+1 << " " << array[index] << std::endl;
+
+    Array array2 = array1;
+
+    cout << "Copy array1: " << array2 << std::endl;
+
+    Array array3 = MoveArray(array1);
+
+    cout << "Move constructor array1: " << array3 << std::endl;
 }

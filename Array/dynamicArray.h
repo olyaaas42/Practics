@@ -17,10 +17,11 @@ public:
 
     void randz(int minz, int maxz); // заполнение случайными числами
 
-	Array(std::initializer_list<int> list);
+	Array(std::initializer_list<int> list); // инициализация контейнера через std::initializer_list
 
-    Array(const Array&) = delete; //избежать копий 
-	Array& operator=(const Array& list) = delete; //избежать копий 
+    Array(const Array &array); //конструктор копирования
+
+    Array MoveArray(const Array &array); //конструктор перемещения
 
 private:
     int number {};
