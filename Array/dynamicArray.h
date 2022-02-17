@@ -5,7 +5,7 @@ class Array
 {
 public:
     Array() = default;  
-
+    
     Array(int number);  //конструктор
     ~Array(); // деструктор
 
@@ -21,7 +21,7 @@ public:
 
     Array(const Array &other); //конструктор копирования
 
-    Array(const Array &&other); //конструктор перемещения
+    Array(Array&& other); //конструктор перемещения
 
 private:
     int number {};

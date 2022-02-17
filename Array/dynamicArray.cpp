@@ -7,12 +7,14 @@ using std::cout;
 
 Array::Array(int number) 
 {
+    cout << "constr\n ";
     this->number = number;
     this->dynamicArray = new int[this->number];
 }
 
 Array::~Array() 
 {
+    cout << "destr\n ";
     delete[] this->dynamicArray;
 }
 
@@ -54,6 +56,7 @@ void Array::randz(int minz, int maxz)
 Array::Array(std::initializer_list<int> list) 
     : Array::Array(list.size()) 
 {
+    cout << "std::initializer_list\n ";
     int count = 0;
     for(auto element : list)
     {
@@ -67,17 +70,20 @@ Array::Array(const Array &other)
     : number(other.number)
     , dynamicArray(new int[other.number])
 {
+    cout << "Copy const\n ";
     for(int i = 0; i < other.number; i++)
     {
         dynamicArray[i] = other.dynamicArray[i];
     }
 }
 
-Array::Array(const Array &&other)
-    : dynamicArray(std::move(other.dynamicArray))
-    , number(std::move(other.number))
+Array::Array(Array&& other)
+    : number { other.number }
+    , dynamicArray { std::move(other.dynamicArray) }
 {
-
+    cout << "Array(Array&& other)\n";
+    other.number = 0;
+    other.dynamicArray = nullptr;    
 }
 
 int main()
@@ -107,7 +113,7 @@ int main()
 
     cout << "Copy array1: " << array2 << std::endl;
 
-    Array array3 = std::move(array);  //или Array array3 = Array(array); ?
+    Array array3 = Array(std::move(array));  
 
     cout << "Move constructor array1: " << array3 << std::endl;
 }
