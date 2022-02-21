@@ -9,4 +9,4 @@ set (HEADERS dynamicArray.h)
  
 set (SOURCES dynamicArray.cpp)
  
-add_executable (CMAKE_PROJECT_NAME ${HEADERS} ${SOURCES})
+add_executable (${CMAKE_PROJECT_NAME} ${HEADERS} ${SOURCES})
