@@ -1,0 +1,1 @@
+/usr/bin/c++ -g -rdynamic CMakeFiles/Arrat.dir/main.cpp.o -o Arrat 
