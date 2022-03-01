@@ -7,21 +7,19 @@ using std::cout;
 
 Array::Array(int number) 
 {
-    cout << "constr\n ";
     this->number = number;
     this->dynamicArray = new int[this->number];
 }
 
 Array::~Array() 
 {
-    cout << "destr\n ";
     delete[] this->dynamicArray;
 }
 
 
 int& Array::operator[] (int index)
 {
-    assert(index >= 0 && index < number);
+    //assert(index > 0 && index <= number);
     return dynamicArray[index];
 }
 
@@ -56,14 +54,13 @@ void Array::randz(int minz, int maxz)
 Array::Array(std::initializer_list<int> list) 
     : Array::Array(list.size()) 
 {
-    cout << "std::initializer_list\n ";
     int count = 0;
     for(auto element : list)
     {
         dynamicArray[count] = element;
         ++count;
     }
-};
+}
 
 
 Array::Array(const Array &other)
@@ -84,36 +81,4 @@ Array::Array(Array&& other)
     cout << "Array(Array&& other)\n";
     other.number = 0;
     other.dynamicArray = nullptr;    
-}
-
-int main()
-{
-    int number = 10;
-    Array array(number); 
-    int index = 4;
-    int minz = 10;
-    int maxz = 80;
-
-    Array array1{2, 5, 7, 8, 3}; 
-    cout << "Dynamic array1: " << array1 << std::endl;
-
-    array.randz(minz, maxz);
-    
-    cout << "Dynamic array: " << array << std::endl;
-
-    cout << "Element dynamic array №" << index+1 << " " << array[index] << std::endl;
-
-    array.insertSort();
-
-    cout << "Sorted dynamic array: " << array << std::endl;
-
-    cout << "Element sorted dynamic array №" << index+1 << " " << array[index] << std::endl;
-
-    Array array2 = array1;
-
-    cout << "Copy array1: " << array2 << std::endl;
-
-    Array array3 = Array(std::move(array));  
-
-    cout << "Move constructor array1: " << array3 << std::endl;
 }
